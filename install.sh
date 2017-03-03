@@ -116,29 +116,41 @@ echo -n "Atom : " \
 
 ################################################################################
 # DOCKER
+function install_virtual_kernel_package {
+  case $DISTRIB_DESCRIPTION in
+    "Ubuntu 16.04.2 LTS" )
+      sudo apt-get install linux-image-extra-virtual-hwe-16.04
+      ;;
+    * )
+      sudo apt-get install linux-image-extra-virtual
+      ;;
+  esac
+}
+
 function prerequisites {
   read_lsb_release
   case $DISTRIB_RELEASE in
     "16.04" )
       echo "Installing prerequisites for Ubuntu 16.04:" \
-        && echo -n "Adding GPG key" \
+        && echo "Adding GPG key" \
         && sudo apt-key adv \
           --keyserver hkp://ha.pool.sks-keyservers.net:80 \
-          --recv-keys 58118E89F3A912897C070ADBF76221572C52609D > /dev/null \
+          --recv-keys 58118E89F3A912897C070ADBF76221572C52609D \
         && echo "$DONE" \
         && REPO="deb https://apt.dockerproject.org/repo ubuntu-xenial main" \
         && echo -n "Adding repository $REPO" \
-        && echo $REPO | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \
+        && echo $REPO | sudo tee /etc/apt/sources.list.d/docker.list \
         && echo "$DONE" \
         && echo -n "Installing new packages" \
-        && sudo apt-get install linux-image-extra-virtual > /dev/null \
+        && install_virtual_kernel_package \
+        && sudo apt-get install python-pip \
         && echo "$DONE" \
       echo "Preparing file system for docker-engine:" \
         && DOCKER_DIR=/home/.docker \
-        && echo -n "Creating directory $HOME/.docker" \
+        && echo "Creating directory $HOME/.docker" \
         && sudo mkdir $DOCKER_DIR \
         && echo "$DONE" \
-        && echo -n "Creating symlink to $DOCKER_DIR at /var/lib/docker" \
+        && echo "Creating symlink to $DOCKER_DIR at /var/lib/docker" \
         && sudo ln -s $DOCKER_DIR /var/lib/docker \
         && echo "$DONE" \
       echo "Installing latest version of docker-engine:" \
@@ -146,7 +158,7 @@ function prerequisites {
         && sudo apt-get update > /dev/null \
         && echo "$DONE" \
         && echo -n "Installing package" \
-        && sudo apt-get install -y docker-engine > /dev/null \
+        && sudo apt-get install -y docker-engine \
         && echo "$DONE" \
       echo "Adding current user to the docker group:" \
         && sudo usermod -aG docker $USER \
