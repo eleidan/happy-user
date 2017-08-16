@@ -211,5 +211,12 @@ echo "Pygments" \
   && sudo apt install python-pygments \
   && echo $DONE
 
+################################################################################
+# cmus
+echo "cmus" \
+  && check_installed "cmus" \
+  && sudo apt install cmus \
+  && echo $DONE
+
 clean_up
 # https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
