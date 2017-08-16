@@ -212,6 +212,15 @@ echo "Pygments" \
   && echo $DONE
 
 ################################################################################
+# Neovim
+echo "Neovim" \
+  && check_installed "neovim" \
+  && sudo add-apt-repository ppa:neovim-ppa/stable \
+  && sudo apt-get update \
+  && sudo apt install neovim \
+  && echo $DONE
+
+################################################################################
 # cmus
 echo "cmus" \
   && check_installed "cmus" \
