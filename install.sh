@@ -118,7 +118,7 @@ echo -n "Atom : " \
 # DOCKER
 function install_virtual_kernel_package {
   case $DISTRIB_DESCRIPTION in
-    "Ubuntu 16.04.2 LTS" )
+    "Ubuntu 16.04.2 LTS" | "Ubuntu 16.04.3 LTS" )
       sudo apt-get install linux-image-extra-virtual-hwe-16.04
       ;;
     * )
