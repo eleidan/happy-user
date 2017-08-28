@@ -92,7 +92,6 @@ function set_aliases {
 function initial_setup {
   git config --global user.name "John Doe"
   git config --global user.email johndoe@example.com
-  git config --global --edit
 }
 
 echo -n "Git : " \
@@ -214,11 +213,34 @@ echo "Pygments" \
 ################################################################################
 # Neovim
 echo "Neovim" \
-  && check_installed "neovim" \
+  && check_installed "nvim" \
   && sudo add-apt-repository ppa:neovim-ppa/stable \
   && sudo apt-get update \
   && sudo apt install neovim \
   && echo $DONE
+
+################################################################################
+# i3wm
+echo "i3wm" \
+  && check_installed "i3" \
+  && sudo apt install i3 \
+  && echo $DONE
+
+
+###############################################################################
+# i3blocks
+echo "i3blocks" \
+  && check_installed "i3blocks" \
+  && sudo apt install i3blocks \
+  && echo $DONE
+
+LOCAL_BIN=$HOME/.local/bin
+KEYBOARD_LAYOUT_FETCHER="$DOWNLOADS_PATH/klf"
+echo -n "Keyboard layout fetcher for i3blocks:" \
+  && git clone git@github.com:eleidan/keyboard-layout-fetcher.git $KEYBOARD_LAYOUT_FETCHER \
+  && mkdir -p $LOCAL_BIN \
+  && cp -i $KEYBOARD_LAYOUT_FETCHER/keyboard $LOCAL_BIN/keyboard
+
 
 ################################################################################
 # cmus
@@ -226,6 +248,34 @@ echo "cmus" \
   && check_installed "cmus" \
   && sudo apt install cmus \
   && echo $DONE
+
+
+################################################################################
+# dotfiles
+DOTFILES="$DOWNLOADS_PATH/dotfiles"
+
+echo -n "Checkout dotfiles repo: " \
+  && git clone git@github.com:eleidan/dotfiles.git $DOTFILES
+
+I3WM="$HOME/.config/i3"
+echo -n "i3wm configs : " \
+  && mkdir -p $I3WM \
+  && cp -i $DOTFILES/.config/i3/config $I3WM/config
+
+I3STATUS="$HOME/.config/i3status"
+echo -n "i3status configs : " \
+  && mkdir -p $I3STATUS \
+  && cp -i $DOTFILES/.config/i3status/config $I3STATUS/config
+
+I3BLOCKS="$HOME/.config/i3blocks"
+echo -n "i3blocks configs : " \
+  && mkdir -p $I3BLOCKS \
+  && cp -i $DOTFILES/.config/i3status/config $I3BLOCKS/config
+
+
+################################################################################
+# Force GIT config update
+git config --global --edit
 
 clean_up
 # https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
