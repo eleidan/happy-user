@@ -1,7 +1,7 @@
 #!/bin/sh
 
 TODO_LIST="vim-tiny thunderbird"
-echo "Uninstall:\n\t$TODO_LIST"
+echo "Uninstall:\n$TODO_LIST"
 sudo apt-get purge $TODO_LIST
 
 echo "Disable apport reporting"
