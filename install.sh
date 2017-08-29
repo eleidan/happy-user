@@ -234,12 +234,11 @@ echo "i3blocks" \
   && sudo apt install i3blocks \
   && echo $DONE
 
-LOCAL_BIN=$HOME/.local/bin
 KEYBOARD_LAYOUT_FETCHER="$DOWNLOADS_PATH/klf"
 echo -n "Keyboard layout fetcher for i3blocks:" \
   && git clone git@github.com:eleidan/keyboard-layout-fetcher.git $KEYBOARD_LAYOUT_FETCHER \
-  && mkdir -p $LOCAL_BIN \
-  && cp -i $KEYBOARD_LAYOUT_FETCHER/keyboard $LOCAL_BIN/keyboard
+  && sudo cp -i $KEYBOARD_LAYOUT_FETCHER/keyboard /usr/share/i3blocks/keyboard \
+  && sudo chmod a+x /usr/share/i3blocks/keyboard
 
 
 ################################################################################
