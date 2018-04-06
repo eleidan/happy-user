@@ -250,6 +250,16 @@ echo "cmus" \
 
 
 ################################################################################
+# scrot, for screenshots
+TARGET="scrot"
+echo ${TARGET} \
+  && check_installed ${TARGET} \
+  && sudo apt install ${TARGET} \
+  && mkdir -p $HOME/Pictures/screenshots \
+  && echo $DONE
+
+
+################################################################################
 # dotfiles
 DOTFILES="$DOWNLOADS_PATH/dotfiles"
 
