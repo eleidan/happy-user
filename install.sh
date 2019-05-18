@@ -279,7 +279,7 @@ echo -n "i3status configs : " \
 I3BLOCKS="$HOME/.config/i3blocks"
 echo -n "i3blocks configs : " \
   && mkdir -p $I3BLOCKS \
-  && cp -i $DOTFILES/.config/i3status/config $I3BLOCKS/config
+  && cp -i $DOTFILES/.config/i3blocks/config $I3BLOCKS/config
 
 
 ################################################################################
